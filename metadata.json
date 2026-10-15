@@ -1,0 +1,8 @@
+{
+  "name": "Remix BerkahOne Client - Sistem Keuangan RT 10 RW 04",
+  "description": "Aplikasi Pengelolaan Keuangan RT 10 RW 04 Pedurungan Lor: Rekomendasi Tech Stack, Skema Database SQL Lengkap, dan Prototipe Interaktif.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

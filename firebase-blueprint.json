@@ -1,0 +1,137 @@
+{
+  "entities": {
+    "Warga": {
+      "title": "Warga",
+      "description": "Data kependudukan warga RT 10 RW 04",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nomor_kk": { "type": "string" },
+        "nik": { "type": "string" },
+        "nama_lengkap": { "type": "string" },
+        "jenis_kelamin": { "type": "string", "enum": ["L", "P"] },
+        "alamat_rumah": { "type": "string" },
+        "nomor_rumah": { "type": "string" },
+        "rt": { "type": "string" },
+        "rw": { "type": "string" },
+        "kelurahan": { "type": "string" },
+        "kecamatan": { "type": "string" },
+        "kota": { "type": "string" },
+        "status_kependudukan": { "type": "string", "enum": ["tetap", "kontrak", "kost"] },
+        "status_keluarga": { "type": "string", "enum": ["kepala_keluarga", "istri", "anak", "anggota"] },
+        "no_telp": { "type": "string" },
+        "pekerjaan": { "type": "string" },
+        "jumlah_anggota_keluarga": { "type": "number" },
+        "status_aktif": { "type": "boolean" },
+        "tanggal_masuk": { "type": "string" }
+      },
+      "required": ["id", "nama_lengkap", "nomor_rumah", "nik"]
+    },
+    "IuranWajib": {
+      "title": "IuranWajib",
+      "description": "Catatan transaksi iuran warga RT 10",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "warga_id": { "type": "string" },
+        "nama_warga": { "type": "string" },
+        "nomor_rumah": { "type": "string" },
+        "bulan": { "type": "number" },
+        "tahun": { "type": "number" },
+        "jenis_iuran": { "type": "string" },
+        "jumlah_nominal": { "type": "number" },
+        "tanggal_bayar": { "type": "string" },
+        "metode_bayar": { "type": "string" },
+        "status_verifikasi": { "type": "string" },
+        "nomor_kwitansi": { "type": "string" },
+        "catatan": { "type": "string" }
+      },
+      "required": ["id", "warga_id", "bulan", "tahun", "jumlah_nominal"]
+    },
+    "Pengeluaran": {
+      "title": "Pengeluaran",
+      "description": "Catatan pengeluaran operasional RT 10",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "kategori": { "type": "string" },
+        "judul_pengeluaran": { "type": "string" },
+        "deskripsi": { "type": "string" },
+        "nominal": { "type": "number" },
+        "tanggal_pengeluaran": { "type": "string" },
+        "penanggung_jawab": { "type": "string" },
+        "status_approval": { "type": "string" }
+      },
+      "required": ["id", "judul_pengeluaran", "nominal", "tanggal_pengeluaran"]
+    },
+    "KasSosial": {
+      "title": "KasSosial",
+      "description": "Mutasi dana sosial dan kemanusiaan RT 10",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tipe_transaksi": { "type": "string", "enum": ["masuk", "keluar"] },
+        "kategori": { "type": "string" },
+        "nominal": { "type": "number" },
+        "tanggal": { "type": "string" },
+        "keterangan": { "type": "string" }
+      },
+      "required": ["id", "tipe_transaksi", "kategori", "nominal", "tanggal"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Akun login pengguna aplikasi RT 10",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nama": { "type": "string" },
+        "email": { "type": "string" },
+        "username": { "type": "string" },
+        "role": { "type": "string" },
+        "status_aktif": { "type": "boolean" }
+      },
+      "required": ["id", "username", "role"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Log aktivitas transaksi dan sistem",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "waktu": { "type": "string" },
+        "pengguna": { "type": "string" },
+        "role": { "type": "string" },
+        "aksi": { "type": "string" },
+        "rincian": { "type": "string" },
+        "kategori": { "type": "string" }
+      },
+      "required": ["id", "waktu", "pengguna", "aksi"]
+    }
+  },
+  "firestore": {
+    "/warga/{wargaId}": {
+      "schema": { "$ref": "entities/Warga" },
+      "description": "Koleksi data warga RT 10 RW 04"
+    },
+    "/iuran_wajib/{iuranId}": {
+      "schema": { "$ref": "entities/IuranWajib" },
+      "description": "Koleksi transaksi iuran kas RT"
+    },
+    "/pengeluaran/{pengeluaranId}": {
+      "schema": { "$ref": "entities/Pengeluaran" },
+      "description": "Koleksi pengeluaran kas operasional RT"
+    },
+    "/kas_sosial/{kasSosialId}": {
+      "schema": { "$ref": "entities/KasSosial" },
+      "description": "Koleksi mutasi dana sosial warga"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "entities/User" },
+      "description": "Koleksi akun pengguna sistem"
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "entities/AuditLog" },
+      "description": "Koleksi audit log aktivitas sistem"
+    }
+  }
+}

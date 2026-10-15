@@ -55,10 +55,11 @@ function geminiAiFinancialPlugin(): Plugin {
 
 export default defineConfig(() => {
   return {
+    base: process.env.BASE_URL || './',
     plugins: [react(), tailwindcss(), geminiAiFinancialPlugin()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {
